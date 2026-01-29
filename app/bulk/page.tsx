@@ -241,7 +241,7 @@ export default function BulkModificationsPage() {
     const toExport = exportAll ? filteredReferences : 
       filteredReferences.filter(ref => selectedIds.has(ref.id));
     
-    const headers = ['SKU', 'Nom', 'Categorie', 'Code-barres', 'Ref Fournisseur', 'Fournisseur', 'Circuit', 'Nb Sites', 'Sites'];
+    const headers = ['SKU', 'Name', 'Category', 'Barcode', 'Supplier Ref', 'Supplier', 'Channel', 'Site Count', 'Sites'];
     const rows = toExport.map(ref => {
       const condition = ref.purchaseConditions[0];
       const supplier = suppliers.find(s => s.id === condition?.supplierId);
@@ -305,19 +305,19 @@ export default function BulkModificationsPage() {
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-2xl font-bold text-foreground">Modifications en masse</h1>
+              <h1 className="text-2xl font-bold text-foreground">Bulk Modifications</h1>
               <p className="text-sm text-muted-foreground mt-1">
-                {productReferences.length.toLocaleString()} references au total
+                {productReferences.length.toLocaleString()} total references
               </p>
             </div>
             <div className="flex items-center gap-3">
               <Button variant="outline" className="gap-2 bg-transparent" onClick={() => setShowImportDialog(true)}>
                 <Upload className="h-4 w-4" />
-                Importer Excel
+                Import Excel
               </Button>
               <Button variant="outline" className="gap-2 bg-transparent" onClick={() => setShowExportDialog(true)}>
                 <Download className="h-4 w-4" />
-                Exporter
+                Export
               </Button>
             </div>
           </div>
@@ -333,29 +333,29 @@ export default function BulkModificationsPage() {
                 <div className="flex items-center justify-between">
                   <CardTitle className="text-base flex items-center gap-2">
                     <Filter className="h-4 w-4" />
-                    Filtres
+                    Filters
                   </CardTitle>
                   {activeFiltersCount > 0 && (
                     <Button variant="ghost" size="sm" onClick={resetFilters} className="h-8 text-xs">
                       <RefreshCw className="h-3 w-3 mr-1" />
-                      Reinitialiser
+                      Reset
                     </Button>
                   )}
                 </div>
                 {activeFiltersCount > 0 && (
                   <Badge variant="secondary" className="w-fit">
-                    {activeFiltersCount} filtre(s) actif(s)
+                    {activeFiltersCount} active filter(s)
                   </Badge>
                 )}
               </CardHeader>
               <CardContent className="space-y-4">
                 {/* Search */}
                 <div className="space-y-2">
-                  <Label className="text-xs font-medium text-muted-foreground">Recherche</Label>
+                  <Label className="text-xs font-medium text-muted-foreground">Search</Label>
                   <div className="relative">
                     <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                     <Input 
-                      placeholder="SKU, nom, code-barres..."
+                      placeholder="SKU, name, barcode..."
                       value={filters.search}
                       onChange={e => {
                         setFilters(prev => ({ ...prev, search: e.target.value }));
@@ -370,7 +370,7 @@ export default function BulkModificationsPage() {
 
                 {/* Supplier */}
                 <div className="space-y-2">
-                  <Label className="text-xs font-medium text-muted-foreground">Fournisseur</Label>
+                  <Label className="text-xs font-medium text-muted-foreground">Supplier</Label>
                   <Select 
                     value={filters.supplierId} 
                     onValueChange={v => {
@@ -379,10 +379,10 @@ export default function BulkModificationsPage() {
                     }}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Tous les fournisseurs" />
+                      <SelectValue placeholder="All suppliers" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">Tous les fournisseurs</SelectItem>
+                      <SelectItem value="all">All suppliers</SelectItem>
                       {suppliers.map(s => (
                         <SelectItem key={s.id} value={s.id}>
                           <span className="flex items-center gap-2">
@@ -397,7 +397,7 @@ export default function BulkModificationsPage() {
 
                 {/* Channel */}
                 <div className="space-y-2">
-                  <Label className="text-xs font-medium text-muted-foreground">Circuit</Label>
+                  <Label className="text-xs font-medium text-muted-foreground">Channel</Label>
                   <Select 
                     value={filters.channel} 
                     onValueChange={v => {
@@ -406,10 +406,10 @@ export default function BulkModificationsPage() {
                     }}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Tous les circuits" />
+                      <SelectValue placeholder="All channels" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">Tous les circuits</SelectItem>
+                      <SelectItem value="all">All channels</SelectItem>
                       <SelectItem value="direct">
                         <span className="flex items-center gap-2">
                           <Truck className="h-3 w-3" />
@@ -428,7 +428,7 @@ export default function BulkModificationsPage() {
 
                 {/* Category */}
                 <div className="space-y-2">
-                  <Label className="text-xs font-medium text-muted-foreground">Categorie</Label>
+                  <Label className="text-xs font-medium text-muted-foreground">Category</Label>
                   <Select 
                     value={filters.category} 
                     onValueChange={v => {
@@ -437,10 +437,10 @@ export default function BulkModificationsPage() {
                     }}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Toutes les categories" />
+                      <SelectValue placeholder="All categories" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">Toutes les categories</SelectItem>
+                      <SelectItem value="all">All categories</SelectItem>
                       {categories.map(c => (
                         <SelectItem key={c} value={c}>{c}</SelectItem>
                       ))}
@@ -459,10 +459,10 @@ export default function BulkModificationsPage() {
                     }}
                   >
                     <SelectTrigger>
-                      <SelectValue placeholder="Toutes les regions" />
+                      <SelectValue placeholder="All regions" />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">Toutes les regions</SelectItem>
+                      <SelectItem value="all">All regions</SelectItem>
                       {regions.map(r => (
                         <SelectItem key={r} value={r}>{r}</SelectItem>
                       ))}
@@ -472,7 +472,7 @@ export default function BulkModificationsPage() {
 
                 {/* Has sites */}
                 <div className="space-y-2">
-                  <Label className="text-xs font-medium text-muted-foreground">Affectation sites</Label>
+                  <Label className="text-xs font-medium text-muted-foreground">Site Assignment</Label>
                   <Select 
                     value={filters.hasSites} 
                     onValueChange={v => {
@@ -484,9 +484,9 @@ export default function BulkModificationsPage() {
                       <SelectValue />
                     </SelectTrigger>
                     <SelectContent>
-                      <SelectItem value="all">Tous</SelectItem>
-                      <SelectItem value="with">Avec sites</SelectItem>
-                      <SelectItem value="without">Sans sites</SelectItem>
+                      <SelectItem value="all">All</SelectItem>
+                      <SelectItem value="with">With sites</SelectItem>
+                      <SelectItem value="without">Without sites</SelectItem>
                     </SelectContent>
                   </Select>
                 </div>
@@ -502,13 +502,13 @@ export default function BulkModificationsPage() {
                 <p className="text-sm text-muted-foreground">
                   <span className="font-semibold text-foreground">{filteredReferences.length.toLocaleString()}</span> references
                   {selectedIds.size > 0 && (
-                    <> | <span className="text-accent font-semibold">{selectedIds.size.toLocaleString()}</span> selectionnee(s)</>
+                    <> | <span className="text-accent font-semibold">{selectedIds.size.toLocaleString()}</span> selected</>
                   )}
                 </p>
                 {selectedIds.size > 0 && (
                   <Button variant="ghost" size="sm" onClick={clearSelection} className="h-7 text-xs">
                     <X className="h-3 w-3 mr-1" />
-                    Deselectionner
+                    Deselect
                   </Button>
                 )}
               </div>
@@ -520,7 +520,7 @@ export default function BulkModificationsPage() {
                     <DropdownMenuTrigger asChild>
                       <Button variant="default" className="gap-2">
                         <MapPin className="h-4 w-4" />
-                        Modifier les sites
+                        Modify Sites
                         {selectedIds.size > 0 && (
                           <Badge variant="secondary" className="ml-1">
                             {selectedIds.size}
@@ -531,16 +531,16 @@ export default function BulkModificationsPage() {
                     <DropdownMenuContent align="end">
                       <DropdownMenuItem onClick={() => { setSitesAction('add'); setShowSitesDialog(true); }}>
                         <Check className="h-4 w-4 mr-2 text-accent" />
-                        Ajouter des sites
+                        Add sites
                       </DropdownMenuItem>
                       <DropdownMenuItem onClick={() => { setSitesAction('remove'); setShowSitesDialog(true); }}>
                         <X className="h-4 w-4 mr-2 text-destructive" />
-                        Retirer des sites
+                        Remove sites
                       </DropdownMenuItem>
                       <DropdownMenuSeparator />
                       <DropdownMenuItem onClick={() => { setSitesAction('replace'); setShowSitesDialog(true); }}>
                         <RefreshCw className="h-4 w-4 mr-2" />
-                        Remplacer tous les sites
+                        Replace all sites
                       </DropdownMenuItem>
                     </DropdownMenuContent>
                   </DropdownMenu>
@@ -551,10 +551,10 @@ export default function BulkModificationsPage() {
             {/* Selection Bar */}
             {filteredReferences.length > itemsPerPage && (
               <div className="flex items-center gap-2 mb-4 p-3 rounded-lg bg-secondary/30 border border-border">
-                <span className="text-sm text-muted-foreground">Selection rapide:</span>
+                <span className="text-sm text-muted-foreground">Quick selection:</span>
                 <Button variant="outline" size="sm" onClick={selectAllFiltered} className="h-7 text-xs bg-transparent">
                   <CheckSquare className="h-3 w-3 mr-1" />
-                  Selectionner les {filteredReferences.length.toLocaleString()} resultats
+                  Select all {filteredReferences.length.toLocaleString()} results
                 </Button>
               </div>
             )}
@@ -569,7 +569,7 @@ export default function BulkModificationsPage() {
                         <Checkbox 
                           checked={isAllPageSelected}
                           onCheckedChange={toggleSelectAll}
-                          aria-label="Selectionner tout"
+                          aria-label="Select all"
                           className={isSomePageSelected && !isAllPageSelected ? 'data-[state=checked]:bg-accent/50' : ''}
                         />
                       </TableHead>
@@ -581,23 +581,23 @@ export default function BulkModificationsPage() {
                       </TableHead>
                       <TableHead>
                         <Button variant="ghost" size="sm" onClick={() => toggleSort('name')} className="h-8 -ml-3 font-medium">
-                          Nom
+                          Name
                           <ArrowUpDown className="h-3 w-3 ml-1" />
                         </Button>
                       </TableHead>
                       <TableHead className="w-40">
                         <Button variant="ghost" size="sm" onClick={() => toggleSort('category')} className="h-8 -ml-3 font-medium">
-                          Categorie
+                          Category
                           <ArrowUpDown className="h-3 w-3 ml-1" />
                         </Button>
                       </TableHead>
                       <TableHead className="w-40">
                         <Button variant="ghost" size="sm" onClick={() => toggleSort('supplier')} className="h-8 -ml-3 font-medium">
-                          Fournisseur
+                          Supplier
                           <ArrowUpDown className="h-3 w-3 ml-1" />
                         </Button>
                       </TableHead>
-                      <TableHead className="w-24">Circuit</TableHead>
+                      <TableHead className="w-24">Channel</TableHead>
                       <TableHead className="w-24 text-right">Sites</TableHead>
                       <TableHead className="w-12" />
                     </TableRow>
@@ -664,8 +664,8 @@ export default function BulkModificationsPage() {
                                 </Button>
                               </DropdownMenuTrigger>
                               <DropdownMenuContent align="end">
-                                <DropdownMenuItem>Voir details</DropdownMenuItem>
-                                <DropdownMenuItem>Modifier sites</DropdownMenuItem>
+                                <DropdownMenuItem>View details</DropdownMenuItem>
+                                <DropdownMenuItem>Modify sites</DropdownMenuItem>
                               </DropdownMenuContent>
                             </DropdownMenu>
                           </TableCell>
@@ -679,7 +679,7 @@ export default function BulkModificationsPage() {
               {/* Pagination */}
               <div className="flex items-center justify-between p-4 border-t border-border">
                 <div className="flex items-center gap-4">
-                  <span className="text-sm text-muted-foreground">Lignes par page:</span>
+                  <span className="text-sm text-muted-foreground">Rows per page:</span>
                   <Select 
                     value={itemsPerPage.toString()} 
                     onValueChange={v => {
@@ -700,7 +700,7 @@ export default function BulkModificationsPage() {
 
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-muted-foreground">
-                    Page {currentPage} sur {totalPages}
+                    Page {currentPage} of {totalPages}
                   </span>
                   <div className="flex items-center gap-1">
                     <Button 
@@ -753,20 +753,20 @@ export default function BulkModificationsPage() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <MapPin className="h-5 w-5 text-accent" />
-              {sitesAction === 'add' && 'Ajouter des sites'}
-              {sitesAction === 'remove' && 'Retirer des sites'}
-              {sitesAction === 'replace' && 'Remplacer les sites'}
+              {sitesAction === 'add' && 'Add sites'}
+              {sitesAction === 'remove' && 'Remove sites'}
+              {sitesAction === 'replace' && 'Replace sites'}
             </DialogTitle>
             <DialogDescription>
-              Cette action affectera {selectedIds.size > 0 ? selectedIds.size.toLocaleString() : filteredReferences.length.toLocaleString()} reference(s)
-              {selectedIds.size === 0 && ' (tout le resultat filtre)'}
+              This action will affect {selectedIds.size > 0 ? selectedIds.size.toLocaleString() : filteredReferences.length.toLocaleString()} reference(s)
+              {selectedIds.size === 0 && ' (entire filtered result)'}
             </DialogDescription>
           </DialogHeader>
 
           <div className="flex-1 overflow-y-auto py-4 space-y-6">
             {/* Quick select by group */}
             <div className="space-y-3">
-              <Label className="text-sm font-medium">Selection rapide par groupe</Label>
+              <Label className="text-sm font-medium">Quick selection by group</Label>
               <Select value={selectedGroupForAction} onValueChange={v => {
                 setSelectedGroupForAction(v);
                 if (v) {
@@ -775,7 +775,7 @@ export default function BulkModificationsPage() {
                 }
               }}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Selectionner un groupe de sites" />
+                  <SelectValue placeholder="Select a site group" />
                 </SelectTrigger>
                 <SelectContent>
                   {siteGroups.map(g => (
@@ -792,9 +792,9 @@ export default function BulkModificationsPage() {
             {/* Individual sites */}
             <div className="space-y-3">
               <div className="flex items-center justify-between">
-                <Label className="text-sm font-medium">Ou selectionner des sites individuels</Label>
+                <Label className="text-sm font-medium">Or select individual sites</Label>
                 <span className="text-xs text-muted-foreground">
-                  {selectedSitesForAction.size} site(s) selectionne(s)
+                  {selectedSitesForAction.size} site(s) selected
                 </span>
               </div>
               
@@ -831,16 +831,16 @@ export default function BulkModificationsPage() {
 
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowSitesDialog(false)}>
-              Annuler
+              Cancel
             </Button>
             <Button 
               onClick={applySitesAction}
               disabled={selectedSitesForAction.size === 0}
               className={sitesAction === 'remove' ? 'bg-destructive text-destructive-foreground hover:bg-destructive/90' : ''}
             >
-              {sitesAction === 'add' && 'Ajouter les sites'}
-              {sitesAction === 'remove' && 'Retirer les sites'}
-              {sitesAction === 'replace' && 'Remplacer les sites'}
+              {sitesAction === 'add' && 'Add sites'}
+              {sitesAction === 'remove' && 'Remove sites'}
+              {sitesAction === 'replace' && 'Replace sites'}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -852,10 +852,10 @@ export default function BulkModificationsPage() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <FileSpreadsheet className="h-5 w-5 text-accent" />
-              Exporter les references
+              Export references
             </DialogTitle>
             <DialogDescription>
-              Choisissez les references a exporter au format CSV (compatible Excel)
+              Choose which references to export in CSV format (Excel compatible)
             </DialogDescription>
           </DialogHeader>
 
@@ -868,11 +868,11 @@ export default function BulkModificationsPage() {
             >
               <CheckSquare className="h-5 w-5 text-accent" />
               <div className="text-left">
-                <p className="font-medium">Exporter la selection</p>
+                <p className="font-medium">Export selection</p>
                 <p className="text-sm text-muted-foreground">
                   {selectedIds.size > 0 
-                    ? `${selectedIds.size.toLocaleString()} reference(s) selectionnee(s)`
-                    : 'Aucune reference selectionnee'}
+                    ? `${selectedIds.size.toLocaleString()} reference(s) selected`
+                    : 'No reference selected'}
                 </p>
               </div>
             </Button>
@@ -884,7 +884,7 @@ export default function BulkModificationsPage() {
             >
               <Package className="h-5 w-5 text-chart-2" />
               <div className="text-left">
-                <p className="font-medium">Exporter tout le resultat filtre</p>
+                <p className="font-medium">Export entire filtered result</p>
                 <p className="text-sm text-muted-foreground">
                   {filteredReferences.length.toLocaleString()} reference(s)
                 </p>
@@ -900,41 +900,41 @@ export default function BulkModificationsPage() {
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Upload className="h-5 w-5 text-accent" />
-              Importer depuis Excel
+              Import from Excel
             </DialogTitle>
             <DialogDescription>
-              Importez un fichier CSV/Excel pour mettre a jour les sites en masse
+              Import a CSV/Excel file to bulk update sites
             </DialogDescription>
           </DialogHeader>
 
           <div className="py-6 space-y-4">
             <div className="border-2 border-dashed border-border rounded-lg p-8 text-center hover:border-accent/50 transition-colors cursor-pointer">
               <Upload className="h-10 w-10 mx-auto text-muted-foreground mb-4" />
-              <p className="font-medium">Glissez-deposez votre fichier ici</p>
-              <p className="text-sm text-muted-foreground mt-1">ou cliquez pour parcourir</p>
-              <p className="text-xs text-muted-foreground mt-4">Formats acceptes: .csv, .xlsx</p>
+              <p className="font-medium">Drag and drop your file here</p>
+              <p className="text-sm text-muted-foreground mt-1">or click to browse</p>
+              <p className="text-xs text-muted-foreground mt-4">Accepted formats: .csv, .xlsx</p>
             </div>
 
             <div className="p-4 rounded-lg bg-secondary/30 space-y-2">
               <p className="text-sm font-medium flex items-center gap-2">
                 <AlertCircle className="h-4 w-4 text-muted-foreground" />
-                Format attendu
+                Expected format
               </p>
               <p className="text-xs text-muted-foreground">
-                Le fichier doit contenir les colonnes: SKU, Sites (separes par ;)
+                The file must contain the columns: SKU, Sites (separated by ;)
               </p>
               <Button variant="link" className="h-auto p-0 text-xs">
-                Telecharger un modele
+                Download template
               </Button>
             </div>
           </div>
 
           <DialogFooter>
             <Button variant="outline" onClick={() => setShowImportDialog(false)}>
-              Annuler
+              Cancel
             </Button>
             <Button disabled>
-              Importer
+              Import
             </Button>
           </DialogFooter>
         </DialogContent>

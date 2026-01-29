@@ -93,9 +93,9 @@ export default function SuppliersPage() {
                   <Building2 className="h-5 w-5 text-accent" />
                 </div>
                 <div>
-                  <h1 className="text-lg font-semibold">Configuration Fournisseurs</h1>
+                  <h1 className="text-lg font-semibold">Supplier Configuration</h1>
                   <p className="text-sm text-muted-foreground">
-                    Gestion des zones et groupes de sites
+                    Zone and site group management
                   </p>
                 </div>
               </div>
@@ -103,7 +103,7 @@ export default function SuppliersPage() {
 
             <div className="flex items-center gap-3 text-sm text-muted-foreground">
               <Store className="h-4 w-4" />
-              <span>{stores.length} magasins disponibles</span>
+              <span>{stores.length} stores available</span>
             </div>
           </div>
         </header>
@@ -114,12 +114,12 @@ export default function SuppliersPage() {
             <AlertCircle className="h-5 w-5 text-muted-foreground mt-0.5 shrink-0" />
             <div className="text-sm text-muted-foreground space-y-1">
               <p>
-                <strong className="text-foreground">Configuration Nationale :</strong> Tous les magasins de
-                l&apos;unite commerciale sont inclus. Un prix d&apos;achat unique s&apos;applique.
+                <strong className="text-foreground">National Configuration:</strong> All stores in
+                the business unit are included. A single purchase price applies.
               </p>
               <p>
-                <strong className="text-foreground">Configuration Groupe de sites :</strong> Les magasins sont
-                regroupes. Un prix d&apos;achat different peut s&apos;appliquer a chaque groupe.
+                <strong className="text-foreground">Site Group Configuration:</strong> Stores are
+                grouped. A different purchase price can apply to each group.
               </p>
             </div>
           </div>
@@ -203,7 +203,7 @@ function SupplierCard({
       <CardContent className="space-y-4">
         {/* Channels */}
         <div className="flex items-center gap-2">
-          <span className="text-xs text-muted-foreground">Circuits :</span>
+          <span className="text-xs text-muted-foreground">Channels:</span>
           <div className="flex items-center gap-1">
             {supplier.availableChannels.includes('direct') && (
               <Tooltip>
@@ -212,7 +212,7 @@ function SupplierCard({
                     <Truck className="h-3.5 w-3.5 text-muted-foreground" />
                   </div>
                 </TooltipTrigger>
-                <TooltipContent>Direct (magasins)</TooltipContent>
+                <TooltipContent>Direct (stores)</TooltipContent>
               </Tooltip>
             )}
             {supplier.availableChannels.includes('stock') && (
@@ -222,7 +222,7 @@ function SupplierCard({
                     <Warehouse className="h-3.5 w-3.5 text-muted-foreground" />
                   </div>
                 </TooltipTrigger>
-                <TooltipContent>Stock (entrepots)</TooltipContent>
+                <TooltipContent>Stock (warehouses)</TooltipContent>
               </Tooltip>
             )}
           </div>
@@ -234,19 +234,19 @@ function SupplierCard({
             <div className="flex items-center gap-2 text-sm">
               <MapPin className="h-4 w-4 text-accent" />
               <span>
-                Tous les sites ({supplier.availableChannels.includes('direct') ? stores.length : 0} magasins
-                {supplier.availableChannels.includes('stock') && ` + ${warehouses.length} entrepots`})
+                All sites ({supplier.availableChannels.includes('direct') ? stores.length : 0} stores
+                {supplier.availableChannels.includes('stock') && ` + ${warehouses.length} warehouses`})
               </span>
             </div>
           ) : (
             <>
               <div className="flex items-center gap-2 text-sm">
                 <Users className="h-4 w-4 text-chart-2" />
-                <span>{supplier.defaultSiteGroups.length} groupe(s) de sites</span>
+                <span>{supplier.defaultSiteGroups.length} site group(s)</span>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4" />
-                <span>{totalSitesInGroups} magasin(s) affectes</span>
+                <span>{totalSitesInGroups} store(s) assigned</span>
               </div>
               {supplier.defaultSiteGroups.length > 0 && (
                 <div className="flex flex-wrap gap-1 mt-2">
@@ -263,7 +263,7 @@ function SupplierCard({
 
         <Button variant="outline" className="w-full gap-2 bg-transparent" onClick={onConfigure}>
           <Settings className="h-4 w-4" />
-          Configurer
+          Configure
         </Button>
       </CardContent>
     </Card>

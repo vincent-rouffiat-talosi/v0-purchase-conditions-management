@@ -1,44 +1,44 @@
 import type { Site, SiteGroup, Supplier, ProductReference } from './types';
 
-// Sites (entrepots et magasins)
+// Sites (warehouses and stores)
 export const warehouses: Site[] = [
-  { id: 'wh-1', name: 'Entrepot Paris Nord', type: 'warehouse', region: 'Ile-de-France' },
-  { id: 'wh-2', name: 'Entrepot Lyon', type: 'warehouse', region: 'Auvergne-Rhone-Alpes' },
-  { id: 'wh-3', name: 'Entrepot Marseille', type: 'warehouse', region: 'PACA' },
-  { id: 'wh-4', name: 'Entrepot Bordeaux', type: 'warehouse', region: 'Nouvelle-Aquitaine' },
+  { id: 'wh-1', name: 'Paris North Warehouse', type: 'warehouse', region: 'Ile-de-France' },
+  { id: 'wh-2', name: 'Lyon Warehouse', type: 'warehouse', region: 'Auvergne-Rhone-Alpes' },
+  { id: 'wh-3', name: 'Marseille Warehouse', type: 'warehouse', region: 'PACA' },
+  { id: 'wh-4', name: 'Bordeaux Warehouse', type: 'warehouse', region: 'Nouvelle-Aquitaine' },
 ];
 
 export const stores: Site[] = [
-  { id: 'st-1', name: 'Magasin Paris 15', type: 'store', region: 'Ile-de-France' },
-  { id: 'st-2', name: 'Magasin Paris 20', type: 'store', region: 'Ile-de-France' },
-  { id: 'st-3', name: 'Magasin Versailles', type: 'store', region: 'Ile-de-France' },
-  { id: 'st-4', name: 'Magasin Lyon Centre', type: 'store', region: 'Auvergne-Rhone-Alpes' },
-  { id: 'st-5', name: 'Magasin Lyon Est', type: 'store', region: 'Auvergne-Rhone-Alpes' },
-  { id: 'st-6', name: 'Magasin Grenoble', type: 'store', region: 'Auvergne-Rhone-Alpes' },
-  { id: 'st-7', name: 'Magasin Marseille Nord', type: 'store', region: 'PACA' },
-  { id: 'st-8', name: 'Magasin Marseille Sud', type: 'store', region: 'PACA' },
-  { id: 'st-9', name: 'Magasin Nice', type: 'store', region: 'PACA' },
-  { id: 'st-10', name: 'Magasin Bordeaux Centre', type: 'store', region: 'Nouvelle-Aquitaine' },
-  { id: 'st-11', name: 'Magasin Bordeaux Lac', type: 'store', region: 'Nouvelle-Aquitaine' },
-  { id: 'st-12', name: 'Magasin Toulouse', type: 'store', region: 'Occitanie' },
+  { id: 'st-1', name: 'Paris 15 Store', type: 'store', region: 'Ile-de-France' },
+  { id: 'st-2', name: 'Paris 20 Store', type: 'store', region: 'Ile-de-France' },
+  { id: 'st-3', name: 'Versailles Store', type: 'store', region: 'Ile-de-France' },
+  { id: 'st-4', name: 'Lyon Central Store', type: 'store', region: 'Auvergne-Rhone-Alpes' },
+  { id: 'st-5', name: 'Lyon East Store', type: 'store', region: 'Auvergne-Rhone-Alpes' },
+  { id: 'st-6', name: 'Grenoble Store', type: 'store', region: 'Auvergne-Rhone-Alpes' },
+  { id: 'st-7', name: 'Marseille North Store', type: 'store', region: 'PACA' },
+  { id: 'st-8', name: 'Marseille South Store', type: 'store', region: 'PACA' },
+  { id: 'st-9', name: 'Nice Store', type: 'store', region: 'PACA' },
+  { id: 'st-10', name: 'Bordeaux Central Store', type: 'store', region: 'Nouvelle-Aquitaine' },
+  { id: 'st-11', name: 'Bordeaux Lake Store', type: 'store', region: 'Nouvelle-Aquitaine' },
+  { id: 'st-12', name: 'Toulouse Store', type: 'store', region: 'Occitanie' },
 ];
 
 export const allSites: Site[] = [...warehouses, ...stores];
 
-// Groupes de sites
+// Site groups
 export const siteGroups: SiteGroup[] = [
-  { id: 'grp-north', name: 'Zone Nord', sites: stores.filter(s => s.region === 'Ile-de-France') },
-  { id: 'grp-east', name: 'Zone Est', sites: stores.filter(s => s.region === 'Auvergne-Rhone-Alpes') },
-  { id: 'grp-south', name: 'Zone Sud', sites: stores.filter(s => s.region === 'PACA' || s.region === 'Occitanie') },
-  { id: 'grp-west', name: 'Zone Ouest', sites: stores.filter(s => s.region === 'Nouvelle-Aquitaine') },
+  { id: 'grp-north', name: 'North Zone', sites: stores.filter(s => s.region === 'Ile-de-France') },
+  { id: 'grp-east', name: 'East Zone', sites: stores.filter(s => s.region === 'Auvergne-Rhone-Alpes') },
+  { id: 'grp-south', name: 'South Zone', sites: stores.filter(s => s.region === 'PACA' || s.region === 'Occitanie') },
+  { id: 'grp-west', name: 'West Zone', sites: stores.filter(s => s.region === 'Nouvelle-Aquitaine') },
 ];
 
-// Fournisseurs
+// Suppliers
 export const suppliers: Supplier[] = [
   {
     id: 'sup-1',
-    name: 'Outillage Pro France',
-    code: 'OPF',
+    name: 'Pro Tools France',
+    code: 'PTF',
     siteConfiguration: 'national',
     availableChannels: ['direct', 'stock'],
     defaultSiteGroups: [],
@@ -53,8 +53,8 @@ export const suppliers: Supplier[] = [
   },
   {
     id: 'sup-3',
-    name: 'Quincaillerie Durand',
-    code: 'QDU',
+    name: 'Durand Hardware',
+    code: 'DHW',
     siteConfiguration: 'group',
     availableChannels: ['direct', 'stock'],
     defaultSiteGroups: [siteGroups[2], siteGroups[3]],
@@ -69,35 +69,35 @@ export const suppliers: Supplier[] = [
   },
 ];
 
-// Categories de produits
+// Product categories
 export const categories = [
-  'Outillage electroportatif',
-  'Outillage a main',
-  'Quincaillerie',
-  'Fixation',
-  'Mesure et tracage',
-  'Securite',
-  'Rangement',
-  'Consommables',
+  'Power Tools',
+  'Hand Tools',
+  'Hardware',
+  'Fasteners',
+  'Measuring & Layout',
+  'Safety Equipment',
+  'Storage',
+  'Consumables',
 ];
 
-// References produits (generation de donnees)
+// Product references (data generation)
 const productNames = [
-  'Perceuse sans fil 18V',
-  'Visseuse electrique',
-  'Marteau 500g',
-  'Tournevis cruciforme',
-  'Pince multiprise',
-  'Scie sauteuse',
-  'Niveau a bulle 60cm',
-  'Metre ruban 5m',
-  'Cle a molette',
-  'Ponceuse orbitale',
-  'Scie circulaire',
-  'Rabot electrique',
-  'Meuleuse angulaire',
-  'Defonceuse',
-  'Agrafeuse electrique',
+  'Cordless Drill 18V',
+  'Electric Screwdriver',
+  'Hammer 500g',
+  'Phillips Screwdriver',
+  'Multi-grip Pliers',
+  'Jigsaw',
+  'Spirit Level 60cm',
+  'Tape Measure 5m',
+  'Adjustable Wrench',
+  'Orbital Sander',
+  'Circular Saw',
+  'Electric Planer',
+  'Angle Grinder',
+  'Router',
+  'Electric Stapler',
 ];
 
 function generateBarcode(): string {
