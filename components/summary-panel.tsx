@@ -70,11 +70,11 @@ export function SummaryPanel({
   const actionLabel = (type: ModificationAction['type']): string => {
     switch (type) {
       case 'change_supplier':
-        return 'Changement de fournisseur';
+        return 'Supplier change';
       case 'change_channel':
-        return 'Changement de circuit';
+        return 'Channel change';
       case 'change_sites':
-        return 'Modification des sites';
+        return 'Site modification';
     }
   };
 
@@ -84,12 +84,12 @@ export function SummaryPanel({
         <SheetHeader>
           <SheetTitle className="flex items-center gap-2">
             <History className="h-5 w-5" />
-            Recapitulatif des modifications
+            Modification Summary
           </SheetTitle>
           <SheetDescription>
             {actions.length === 0
-              ? 'Aucune modification en cours'
-              : `${actions.length} action(s) - ${totalAffectedRefs} reference(s) affectee(s)`}
+              ? 'No modifications in progress'
+              : `${actions.length} action(s) - ${totalAffectedRefs} reference(s) affected`}
           </SheetDescription>
         </SheetHeader>
 
@@ -101,7 +101,7 @@ export function SummaryPanel({
                 {errorCount > 0 ? (
                   <Badge variant="destructive" className="gap-1">
                     <AlertCircle className="h-3 w-3" />
-                    {errorCount} erreur(s)
+                    {errorCount} error(s)
                   </Badge>
                 ) : (
                   <Badge className="gap-1 bg-success text-success-foreground">
@@ -112,7 +112,7 @@ export function SummaryPanel({
                 {warningCount > 0 && (
                   <Badge variant="outline" className="gap-1 border-warning text-warning">
                     <AlertTriangle className="h-3 w-3" />
-                    {warningCount} avertissement(s)
+                    {warningCount} warning(s)
                   </Badge>
                 )}
               </div>
@@ -121,7 +121,7 @@ export function SummaryPanel({
             {/* Actions list */}
             {actions.length > 0 && (
               <div className="space-y-3">
-                <h4 className="text-sm font-medium text-muted-foreground">Actions appliquees</h4>
+                <h4 className="text-sm font-medium text-muted-foreground">Applied actions</h4>
                 {actions.map((action, index) => (
                   <div
                     key={index}
@@ -145,21 +145,21 @@ export function SummaryPanel({
                       <div className="space-y-3">
                         <div className="grid grid-cols-2 gap-3 p-3 rounded bg-secondary/30">
                           <div>
-                            <p className="text-xs text-muted-foreground mb-1">Ancien fournisseur</p>
+                            <p className="text-xs text-muted-foreground mb-1">Previous supplier</p>
                             <p className="text-sm font-medium">
                               {action.details.oldSupplierId ? getSupplierName(action.details.oldSupplierId) : '-'}
                             </p>
                             <Badge variant="outline" className="text-xs mt-1">
-                              {action.details.oldSupplierConfig === 'national' ? 'National' : 'Groupe'}
+                              {action.details.oldSupplierConfig === 'national' ? 'National' : 'Group'}
                             </Badge>
                           </div>
                           <div>
-                            <p className="text-xs text-muted-foreground mb-1">Nouveau fournisseur</p>
+                            <p className="text-xs text-muted-foreground mb-1">New supplier</p>
                             <p className="text-sm font-medium text-accent">
                               {action.details.newSupplierId ? getSupplierName(action.details.newSupplierId) : '-'}
                             </p>
                             <Badge className="text-xs mt-1 bg-accent text-accent-foreground">
-                              {action.details.newSupplierConfig === 'national' ? 'National' : 'Groupe'}
+                              {action.details.newSupplierConfig === 'national' ? 'National' : 'Group'}
                             </Badge>
                           </div>
                         </div>
@@ -171,14 +171,14 @@ export function SummaryPanel({
                             ) : (
                               <Truck className="h-4 w-4 text-accent" />
                             )}
-                            <span>Circuit : <strong>{action.details.newChannel === 'stock' ? 'Stock' : 'Direct'}</strong></span>
+                            <span>Channel: <strong>{action.details.newChannel === 'stock' ? 'Stock' : 'Direct'}</strong></span>
                           </div>
                         )}
 
                         {action.details.barcodeUpdates && Object.keys(action.details.barcodeUpdates).length > 0 && (
                           <div className="space-y-2">
                             <p className="text-xs font-medium text-muted-foreground">
-                              Codes-barres et references modifies ({Object.keys(action.details.barcodeUpdates).length})
+                              Barcodes and references modified ({Object.keys(action.details.barcodeUpdates).length})
                             </p>
                             <div className="max-h-[120px] overflow-auto space-y-1">
                               {action.referenceDetails?.slice(0, 5).map(ref => (
@@ -194,7 +194,7 @@ export function SummaryPanel({
                               ))}
                               {(action.referenceDetails?.length || 0) > 5 && (
                                 <p className="text-xs text-muted-foreground text-center">
-                                  +{(action.referenceDetails?.length || 0) - 5} autre(s) reference(s)
+                                  +{(action.referenceDetails?.length || 0) - 5} other reference(s)
                                 </p>
                               )}
                             </div>
@@ -208,7 +208,7 @@ export function SummaryPanel({
                       <div className="space-y-3">
                         <div className="grid grid-cols-2 gap-3 p-3 rounded bg-secondary/30">
                           <div>
-                            <p className="text-xs text-muted-foreground mb-1">Ancien circuit</p>
+                            <p className="text-xs text-muted-foreground mb-1">Previous channel</p>
                             <div className="flex items-center gap-2">
                               {action.details.oldChannel === 'stock' ? (
                                 <Warehouse className="h-4 w-4" />
@@ -224,7 +224,7 @@ export function SummaryPanel({
                             </p>
                           </div>
                           <div>
-                            <p className="text-xs text-muted-foreground mb-1">Nouveau circuit</p>
+                            <p className="text-xs text-muted-foreground mb-1">New channel</p>
                             <div className="flex items-center gap-2 text-accent">
                               {action.details.newChannel === 'stock' ? (
                                 <Warehouse className="h-4 w-4" />
@@ -243,7 +243,7 @@ export function SummaryPanel({
 
                         {action.referenceDetails && (
                           <div className="space-y-1">
-                            <p className="text-xs font-medium text-muted-foreground">References concernees</p>
+                            <p className="text-xs font-medium text-muted-foreground">Affected references</p>
                             <div className="flex flex-wrap gap-1">
                               {action.referenceDetails.slice(0, 6).map(ref => (
                                 <Badge key={ref.id} variant="secondary" className="text-xs font-mono">
@@ -293,7 +293,7 @@ export function SummaryPanel({
 
                         {action.referenceDetails && (
                           <div className="space-y-1">
-                            <p className="text-xs font-medium text-muted-foreground">References concernees</p>
+                            <p className="text-xs font-medium text-muted-foreground">Affected references</p>
                             <div className="flex flex-wrap gap-1">
                               {action.referenceDetails.slice(0, 6).map(ref => (
                                 <Badge key={ref.id} variant="secondary" className="text-xs font-mono">

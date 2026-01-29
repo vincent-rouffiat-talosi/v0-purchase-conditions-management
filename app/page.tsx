@@ -144,9 +144,9 @@ export default function PurchaseConditionsPage() {
                   <LayoutGrid className="h-5 w-5 text-accent" />
                 </div>
                 <div>
-                  <h1 className="text-lg font-semibold">Conditions d&apos;Achat</h1>
+                  <h1 className="text-lg font-semibold">Purchase Conditions</h1>
                   <p className="text-sm text-muted-foreground">
-                    Gestion des approvisionnements
+                    Supply management
                   </p>
                 </div>
               </div>
@@ -161,7 +161,7 @@ export default function PurchaseConditionsPage() {
                 </div>
                 <div className="flex items-center gap-2 text-muted-foreground">
                   <Building2 className="h-4 w-4" />
-                  <span>{suppliers.length} fournisseurs</span>
+                  <span>{suppliers.length} suppliers</span>
                 </div>
               </div>
 
@@ -169,7 +169,7 @@ export default function PurchaseConditionsPage() {
               <Link href="/bulk">
                 <Button variant="outline" className="gap-2 bg-transparent">
                   <Package className="h-4 w-4" />
-                  <span className="hidden sm:inline">Modifications en masse</span>
+                  <span className="hidden sm:inline">Bulk Modifications</span>
                 </Button>
               </Link>
 
@@ -177,7 +177,7 @@ export default function PurchaseConditionsPage() {
               <Link href="/suppliers">
                 <Button variant="outline" className="gap-2 bg-transparent">
                   <Building2 className="h-4 w-4" />
-                  <span className="hidden sm:inline">Fournisseurs</span>
+                  <span className="hidden sm:inline">Suppliers</span>
                 </Button>
               </Link>
 
@@ -198,7 +198,7 @@ export default function PurchaseConditionsPage() {
                     )}
                   </Button>
                 </TooltipTrigger>
-                <TooltipContent>Historique des modifications</TooltipContent>
+                <TooltipContent>Modification history</TooltipContent>
               </Tooltip>
 
               {/* Modify button */}
@@ -208,7 +208,7 @@ export default function PurchaseConditionsPage() {
                 className="gap-2"
               >
                 <Edit3 className="h-4 w-4" />
-                Modifier
+                Modify
                 {selectedIds.length > 0 && (
                   <Badge variant="secondary" className="ml-1">
                     {selectedIds.length}
@@ -224,17 +224,17 @@ export default function PurchaseConditionsPage() {
               {errorCount > 0 ? (
                 <Badge variant="destructive" className="gap-1">
                   <AlertCircle className="h-3 w-3" />
-                  {errorCount} erreur(s) de coherence
+                  {errorCount} coherence error(s)
                 </Badge>
               ) : actions.length > 0 ? (
                 <Badge className="gap-1 bg-success text-success-foreground">
                   <Check className="h-3 w-3" />
-                  {actions.length} modification(s) appliquee(s)
+                  {actions.length} modification(s) applied
                 </Badge>
               ) : null}
               
               <span className="text-muted-foreground">
-                {actions.reduce((sum, a) => sum + a.referenceIds.length, 0)} reference(s) modifiee(s)
+                {actions.reduce((sum, a) => sum + a.referenceIds.length, 0)} reference(s) modified
               </span>
             </div>
           )}
@@ -248,7 +248,7 @@ export default function PurchaseConditionsPage() {
                 <Truck className="h-4 w-4 text-accent" />
               </div>
               <div>
-                <p className="text-xs text-muted-foreground">Circuit Direct</p>
+                <p className="text-xs text-muted-foreground">Direct Channel</p>
                 <p className="text-lg font-semibold">{stats.channelCounts.direct}</p>
               </div>
             </div>
@@ -257,7 +257,7 @@ export default function PurchaseConditionsPage() {
                 <Warehouse className="h-4 w-4 text-accent" />
               </div>
               <div>
-                <p className="text-xs text-muted-foreground">Circuit Stock</p>
+                <p className="text-xs text-muted-foreground">Stock Channel</p>
                 <p className="text-lg font-semibold">{stats.channelCounts.stock}</p>
               </div>
             </div>

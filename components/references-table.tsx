@@ -160,7 +160,7 @@ export function ReferencesTable({
         <div className="relative flex-1 min-w-[250px]">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
           <Input
-            placeholder="Rechercher par SKU, nom..."
+            placeholder="Search by SKU, name..."
             value={search}
             onChange={e => setSearch(e.target.value)}
             className="pl-9"
@@ -170,10 +170,10 @@ export function ReferencesTable({
           <Filter className="h-4 w-4 text-muted-foreground" />
           <Select value={supplierFilter} onValueChange={setSupplierFilter}>
             <SelectTrigger className="w-[200px]">
-              <SelectValue placeholder="Fournisseur" />
+              <SelectValue placeholder="Supplier" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Tous les fournisseurs</SelectItem>
+              <SelectItem value="all">All suppliers</SelectItem>
               {suppliers.map(s => (
                 <SelectItem key={s.id} value={s.id}>
                   {s.name}
@@ -183,10 +183,10 @@ export function ReferencesTable({
           </Select>
           <Select value={channelFilter} onValueChange={setChannelFilter}>
             <SelectTrigger className="w-[150px]">
-              <SelectValue placeholder="Circuit" />
+              <SelectValue placeholder="Channel" />
             </SelectTrigger>
             <SelectContent>
-              <SelectItem value="all">Tous les circuits</SelectItem>
+              <SelectItem value="all">All channels</SelectItem>
               <SelectItem value="direct">Direct</SelectItem>
               <SelectItem value="stock">Stock</SelectItem>
             </SelectContent>
@@ -197,12 +197,12 @@ export function ReferencesTable({
       {/* Selection info */}
       <div className="flex items-center justify-between text-sm">
         <span className="text-muted-foreground">
-          {filteredAndSortedReferences.length} reference(s) affichee(s)
+          {filteredAndSortedReferences.length} reference(s) displayed
         </span>
         {selectedIds.length > 0 && (
           <Badge variant="default" className="gap-1">
             <Package className="h-3 w-3" />
-            {selectedIds.length} selectionnee(s)
+            {selectedIds.length} selected
           </Badge>
         )}
       </div>
@@ -239,7 +239,7 @@ export function ReferencesTable({
                   className="h-auto p-0 font-semibold hover:bg-transparent"
                   onClick={() => handleSort('name')}
                 >
-                  Designation
+                  Name
                   <SortIcon field="name" />
                 </Button>
               </TableHead>
@@ -250,7 +250,7 @@ export function ReferencesTable({
                   className="h-auto p-0 font-semibold hover:bg-transparent"
                   onClick={() => handleSort('supplier')}
                 >
-                  Fournisseur
+                  Supplier
                   <SortIcon field="supplier" />
                 </Button>
               </TableHead>
@@ -261,11 +261,11 @@ export function ReferencesTable({
                   className="h-auto p-0 font-semibold hover:bg-transparent"
                   onClick={() => handleSort('channel')}
                 >
-                  Circuit
+                  Channel
                   <SortIcon field="channel" />
                 </Button>
               </TableHead>
-              <TableHead>Type zone</TableHead>
+              <TableHead>Zone Type</TableHead>
               <TableHead className="text-right">Sites</TableHead>
             </TableRow>
           </TableHeader>
@@ -316,7 +316,7 @@ export function ReferencesTable({
                         variant={supplier.siteConfiguration === 'national' ? 'default' : 'outline'}
                         className={supplier.siteConfiguration === 'national' ? 'bg-accent text-accent-foreground' : ''}
                       >
-                        {supplier.siteConfiguration === 'national' ? 'National' : 'Groupe'}
+                        {supplier.siteConfiguration === 'national' ? 'National' : 'Group'}
                       </Badge>
                     )}
                   </TableCell>
