@@ -1,10 +1,6 @@
 'use client';
 
-import dynamic from 'next/dynamic';
 import { useState, useMemo, useCallback } from 'react';
-
-// Force dynamic rendering to avoid ISR issues with large datasets
-export const runtime = 'edge';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
