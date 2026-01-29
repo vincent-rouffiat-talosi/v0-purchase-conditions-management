@@ -10,11 +10,19 @@
 This repository will stay in sync with your deployed chats on [v0.app](https://v0.app).
 Any changes you make to your deployed app will be automatically pushed to this repository from [v0.app](https://v0.app).
 
+We use [this promt](https://docs.google.com/document/d/1Ed_2vRl0mBZ0L0MXjc0azPdZIBnWjLeBKQJBJJsnJMM/edit?tab=t.0) to have this results.
+
 ## Deployment
 
 Your project is live at:
 
 **[https://vercel.com/jhennarts-projects/v0-purchase-conditions-management](https://vercel.com/jhennarts-projects/v0-purchase-conditions-management)**
+
+## Public deployment
+
+Your project is public deploy at:
+
+**[https://v0-purchase-conditions-management.vercel.app/](https://v0-purchase-conditions-management.vercel.app/)**
 
 ## Build your app
 
