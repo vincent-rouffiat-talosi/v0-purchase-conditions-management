@@ -194,7 +194,7 @@ function SupplierCard({
             ) : (
               <>
                 <Users className="h-3 w-3 mr-1" />
-                Groupe
+                Group
               </>
             )}
           </Badge>

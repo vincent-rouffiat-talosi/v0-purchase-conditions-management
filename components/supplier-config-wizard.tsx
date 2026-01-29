@@ -52,10 +52,10 @@ interface WizardState {
 }
 
 const STEPS = [
-  { id: 1, title: 'Type de zone', description: 'National ou Groupe de sites' },
-  { id: 2, title: 'Circuit', description: 'Type de livraison' },
-  { id: 3, title: 'Groupes de sites', description: 'Configuration des groupes' },
-  { id: 4, title: 'Confirmation', description: 'Recapitulatif' },
+  { id: 1, title: 'Zone Type', description: 'National or Site Group' },
+  { id: 2, title: 'Channel', description: 'Delivery type' },
+  { id: 3, title: 'Site Groups', description: 'Group configuration' },
+  { id: 4, title: 'Confirmation', description: 'Summary' },
 ];
 
 export function SupplierConfigWizard({
@@ -250,7 +250,7 @@ export function SupplierConfigWizard({
     <div className="space-y-6">
       <div className="p-4 rounded-lg bg-secondary/30 space-y-2">
         <p className="text-sm text-muted-foreground">
-          Selectionnez le type de configuration pour definir comment les sites seront geres pour ce fournisseur.
+          Select the configuration type to define how sites will be managed for this supplier.
         </p>
       </div>
 
@@ -272,12 +272,12 @@ export function SupplierConfigWizard({
               <span className="font-semibold">National</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Tous les sites de l&apos;unite commerciale sont automatiquement inclus. 
-              Un prix d&apos;achat unique s&apos;applique a l&apos;ensemble des sites.
+              All sites in the business unit are automatically included. 
+              A single purchase price applies to all sites.
             </p>
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <Store className="h-3 w-3" />
-              <span>{stores.length} magasins + {warehouses.length} entrepots</span>
+              <span>{stores.length} stores + {warehouses.length} warehouses</span>
             </div>
           </div>
         </label>
@@ -292,15 +292,15 @@ export function SupplierConfigWizard({
               <div className="p-2 rounded-lg bg-chart-2/10">
                 <Users className="h-5 w-5 text-chart-2" />
               </div>
-              <span className="font-semibold">Groupe de sites</span>
+              <span className="font-semibold">Site Group</span>
             </div>
             <p className="text-sm text-muted-foreground">
-              Les sites sont organises en groupes personnalises. 
-              Chaque groupe peut avoir un prix d&apos;achat different.
+              Sites are organized in custom groups. 
+              Each group can have a different purchase price.
             </p>
             <div className="flex items-center gap-2 text-xs text-muted-foreground">
               <Users className="h-3 w-3" />
-              <span>Configuration flexible par groupe</span>
+              <span>Flexible configuration per group</span>
             </div>
           </div>
         </label>
@@ -313,15 +313,15 @@ export function SupplierConfigWizard({
     <div className="space-y-6">
       <div className="p-4 rounded-lg bg-secondary/30 space-y-2">
         <p className="text-sm text-muted-foreground">
-          Selectionnez le circuit de livraison pour definir le type de sites a configurer.
+          Select the delivery channel to define the type of sites to configure.
         </p>
         <p className="text-xs text-muted-foreground">
-          <strong>Regle metier :</strong> Un groupe de sites doit contenir uniquement des sites du meme type (magasins OU entrepots).
+          <strong>Business rule:</strong> A site group must contain only sites of the same type (stores OR warehouses).
         </p>
       </div>
 
       <div className="space-y-3">
-        <Label className="text-sm font-medium">Circuit de livraison</Label>
+        <Label className="text-sm font-medium">Delivery Channel</Label>
         <RadioGroup
           value={state.selectedChannel || ''}
           onValueChange={value => setState(prev => ({ 
@@ -343,14 +343,14 @@ export function SupplierConfigWizard({
                   <div className="p-2 rounded-lg bg-accent/10">
                     <Truck className="h-5 w-5 text-accent" />
                   </div>
-                  <span className="font-semibold">Direct (magasins)</span>
+                  <span className="font-semibold">Direct (stores)</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Livraison directe du fournisseur vers les magasins. Les groupes seront configures avec des magasins.
+                  Direct delivery from supplier to stores. Groups will be configured with stores.
                 </p>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <Store className="h-3 w-3" />
-                  <span>{stores.length} magasins disponibles</span>
+                  <span>{stores.length} stores available</span>
                 </div>
               </div>
             </label>
@@ -367,14 +367,14 @@ export function SupplierConfigWizard({
                   <div className="p-2 rounded-lg bg-chart-2/10">
                     <Warehouse className="h-5 w-5 text-chart-2" />
                   </div>
-                  <span className="font-semibold">Stock (entrepots)</span>
+                  <span className="font-semibold">Stock (warehouses)</span>
                 </div>
                 <p className="text-sm text-muted-foreground">
-                  Livraison vers les entrepots centraux. Les groupes seront configures avec des entrepots.
+                  Delivery to central warehouses. Groups will be configured with warehouses.
                 </p>
                 <div className="flex items-center gap-2 text-xs text-muted-foreground">
                   <Warehouse className="h-3 w-3" />
-                  <span>{warehouses.length} entrepots disponibles</span>
+                  <span>{warehouses.length} warehouses available</span>
                 </div>
               </div>
             </label>
@@ -389,16 +389,16 @@ export function SupplierConfigWizard({
     <div className="space-y-6">
       <div className="p-4 rounded-lg bg-secondary/30 space-y-2">
         <p className="text-sm text-muted-foreground">
-          Creez et configurez vos groupes de sites. Chaque groupe peut contenir plusieurs sites.
+          Create and configure your site groups. Each group can contain multiple sites.
         </p>
         <div className="flex items-center gap-4 text-xs">
           <span className="flex items-center gap-1 text-accent">
             <Check className="h-3 w-3" />
-            {assignedSiteIds.size} site(s) affectes
+            {assignedSiteIds.size} site(s) assigned
           </span>
           <span className="flex items-center gap-1 text-muted-foreground">
             <AlertCircle className="h-3 w-3" />
-            {unassignedSites.length} site(s) non affectes
+            {unassignedSites.length} unassigned site(s)
           </span>
         </div>
       </div>
@@ -406,14 +406,14 @@ export function SupplierConfigWizard({
       {/* Add new group */}
       <div className="flex gap-2">
         <Input
-          placeholder="Nom du nouveau groupe..."
+          placeholder="New group name..."
           value={state.newGroupName}
           onChange={e => setState(prev => ({ ...prev, newGroupName: e.target.value }))}
           onKeyDown={e => e.key === 'Enter' && handleAddGroup()}
         />
         <Button onClick={handleAddGroup} disabled={!state.newGroupName.trim()} className="gap-2">
           <Plus className="h-4 w-4" />
-          Ajouter
+          Add
         </Button>
       </div>
 
@@ -423,7 +423,7 @@ export function SupplierConfigWizard({
           <div className="p-8 rounded-lg border-2 border-dashed border-border text-center">
             <Users className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
             <p className="text-sm text-muted-foreground">
-              Aucun groupe cree. Ajoutez votre premier groupe ci-dessus.
+              No groups created. Add your first group above.
             </p>
           </div>
         ) : (
@@ -450,10 +450,10 @@ export function SupplierConfigWizard({
           <div className="flex items-start gap-2">
             <AlertCircle className="h-4 w-4 text-warning mt-0.5" />
             <div>
-              <p className="text-sm font-medium text-warning">Sites non affectes</p>
+              <p className="text-sm font-medium text-warning">Unassigned sites</p>
               <p className="text-xs text-muted-foreground mt-1">
-                {unassignedSites.length} site(s) ne sont pas dans un groupe. 
-                Ces sites ne seront pas inclus dans la configuration.
+                {unassignedSites.length} site(s) are not in a group. 
+                These sites will not be included in the configuration.
               </p>
               <div className="flex flex-wrap gap-1 mt-2">
                 {unassignedSites.slice(0, 5).map(site => (
@@ -463,7 +463,7 @@ export function SupplierConfigWizard({
                 ))}
                 {unassignedSites.length > 5 && (
                   <Badge variant="outline" className="text-xs">
-                    +{unassignedSites.length - 5} autres
+                    +{unassignedSites.length - 5} more
                   </Badge>
                 )}
               </div>
@@ -488,9 +488,9 @@ export function SupplierConfigWizard({
               <Check className="h-5 w-5 text-accent" />
             </div>
             <div>
-              <p className="font-medium">Configuration prete a etre appliquee</p>
+              <p className="font-medium">Configuration ready to be applied</p>
               <p className="text-sm text-muted-foreground">
-                Verifiez les parametres avant de confirmer
+                Review settings before confirming
               </p>
             </div>
           </div>
@@ -511,7 +511,7 @@ export function SupplierConfigWizard({
           {/* Configuration summary */}
           <div className="grid grid-cols-2 gap-4">
             <div className="p-4 rounded-lg border border-border space-y-2">
-              <p className="text-xs text-muted-foreground">Type de zone</p>
+              <p className="text-xs text-muted-foreground">Zone Type</p>
               <div className="flex items-center gap-2">
                 {state.configurationType === 'national' ? (
                   <>
@@ -521,7 +521,7 @@ export function SupplierConfigWizard({
                 ) : (
                   <>
                     <Users className="h-5 w-5 text-chart-2" />
-                    <span className="font-medium">Groupe de sites</span>
+                    <span className="font-medium">Site Group</span>
                   </>
                 )}
               </div>
@@ -529,7 +529,7 @@ export function SupplierConfigWizard({
 
             {state.configurationType === 'group' && (
               <div className="p-4 rounded-lg border border-border space-y-2">
-                <p className="text-xs text-muted-foreground">Circuit</p>
+                <p className="text-xs text-muted-foreground">Channel</p>
                 <div className="flex items-center gap-2">
                   {state.selectedChannel === 'direct' ? (
                     <>
@@ -550,13 +550,13 @@ export function SupplierConfigWizard({
           {/* Sites details */}
           <div className="p-4 rounded-lg border border-border space-y-3">
             <div className="flex items-center justify-between">
-              <p className="text-sm font-medium">Sites configures</p>
+              <p className="text-sm font-medium">Configured Sites</p>
               <Badge variant="secondary">{totalSites} site(s)</Badge>
             </div>
 
             {state.configurationType === 'national' ? (
               <p className="text-sm text-muted-foreground">
-                Tous les sites seront automatiquement inclus.
+                All sites will be automatically included.
               </p>
             ) : (
               <div className="space-y-2">
@@ -580,7 +580,7 @@ export function SupplierConfigWizard({
             <div className="p-3 rounded-lg bg-warning/10 border border-warning/20">
               <div className="flex items-center gap-2 text-warning text-sm">
                 <AlertCircle className="h-4 w-4" />
-                <span>{unassignedSites.length} site(s) ne seront pas affectes a un groupe</span>
+                <span>{unassignedSites.length} site(s) will not be assigned to a group</span>
               </div>
             </div>
           )}
@@ -597,10 +597,10 @@ export function SupplierConfigWizard({
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2">
               <Building2 className="h-5 w-5" />
-              Configuration de {supplier.name}
+              {supplier.name} Configuration
             </DialogTitle>
             <DialogDescription>
-              Definissez le type de zone et configurez les groupes de sites pour ce fournisseur.
+              Define the zone type and configure site groups for this supplier.
             </DialogDescription>
           </DialogHeader>
 
@@ -655,21 +655,21 @@ export function SupplierConfigWizard({
               className="gap-2"
             >
               <ArrowLeft className="h-4 w-4" />
-              Retour
+              Back
             </Button>
 
             <div className="flex items-center gap-2">
               <Button variant="outline" onClick={() => onOpenChange(false)} className="bg-transparent">
-                Annuler
+                Cancel
               </Button>
               {step === 4 ? (
                 <Button onClick={handleSave} className="gap-2 bg-accent text-accent-foreground hover:bg-accent/90">
                   <Check className="h-4 w-4" />
-                  Confirmer
+                  Confirm
                 </Button>
               ) : (
                 <Button onClick={handleNext} disabled={!canProceed()} className="gap-2">
-                  Suivant
+                  Next
                   <ArrowRight className="h-4 w-4" />
                 </Button>
               )}
@@ -776,13 +776,13 @@ function GroupCard({
           {selectedForTransfer.size > 0 && otherGroups.length > 0 && (
             <div className="flex items-center gap-2 p-2 rounded bg-secondary/30">
               <ArrowRightLeft className="h-4 w-4 text-muted-foreground" />
-              <span className="text-xs">{selectedForTransfer.size} site(s) selectionne(s)</span>
+              <span className="text-xs">{selectedForTransfer.size} site(s) selected</span>
               <select
                 className="text-xs bg-secondary border border-border rounded px-2 py-1"
                 value={transferTargetGroup || ''}
                 onChange={e => setTransferTargetGroup(e.target.value || null)}
               >
-                <option value="">Transferer vers...</option>
+                <option value="">Transfer to...</option>
                 {otherGroups.map(g => (
                   <option key={g.id} value={g.id}>{g.name}</option>
                 ))}
@@ -794,7 +794,7 @@ function GroupCard({
                 disabled={!transferTargetGroup}
                 onClick={handleTransfer}
               >
-                Transferer
+                Transfer
               </Button>
               <Button
                 size="sm"
@@ -805,7 +805,7 @@ function GroupCard({
                   setTransferTargetGroup(null);
                 }}
               >
-                Annuler
+                Cancel
               </Button>
             </div>
           )}
@@ -822,19 +822,19 @@ function GroupCard({
           disabled={unassignedSites.length === 0}
         >
           <Plus className="h-4 w-4" />
-          Ajouter des sites ({unassignedSites.length} disponibles)
+          Add sites ({unassignedSites.length} available)
         </Button>
       ) : (
         <div className="space-y-2 p-3 rounded bg-secondary/20 border border-border">
           <div className="flex items-center justify-between">
-            <p className="text-xs font-medium">Selectionner des sites a ajouter</p>
+            <p className="text-xs font-medium">Select sites to add</p>
             <Button
               size="sm"
               variant="ghost"
               className="h-6 text-xs"
               onClick={() => setShowAddSites(false)}
             >
-              Fermer
+              Close
             </Button>
           </div>
           <div className="grid grid-cols-2 gap-2 max-h-[150px] overflow-auto">
@@ -862,7 +862,7 @@ function GroupCard({
       {/* Empty state */}
       {group.sites.length === 0 && !showAddSites && (
         <p className="text-xs text-muted-foreground text-center py-2">
-          Aucun site dans ce groupe
+          No sites in this group
         </p>
       )}
     </div>

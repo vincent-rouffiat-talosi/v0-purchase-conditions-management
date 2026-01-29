@@ -128,7 +128,7 @@ export function ModificationWizard({
       newAlerts.push({
         type: 'reference_without_sites',
         severity: 'error',
-        message: `${selectedReferences.length} reference(s) seront sans site affecte`,
+        message: `${selectedReferences.length} reference(s) will have no assigned site`,
         referenceIds: selectedReferences.map(r => r.id),
       });
     }
@@ -139,7 +139,7 @@ export function ModificationWizard({
         newAlerts.push({
           type: 'reference_without_sites',
           severity: 'error',
-          message: 'Configuration "groupe de sites" : vous devez selectionner au moins un site',
+          message: 'Site group configuration: you must select at least one site',
           referenceIds: selectedReferences.map(r => r.id),
         });
       }
@@ -161,7 +161,7 @@ export function ModificationWizard({
         newAlerts.push({
           type: 'orphan_sites',
           severity: 'warning',
-          message: `${orphanSiteIds.length} site(s) ne seront plus affectes a ces references`,
+          message: `${orphanSiteIds.length} site(s) will no longer be assigned to these references`,
           siteIds: orphanSiteIds,
         });
       }
@@ -378,7 +378,7 @@ export function ModificationWizard({
   const renderStep1 = () => (
     <div className="space-y-4">
       <p className="text-sm text-muted-foreground">
-        Selectionnez le type de modification a appliquer aux {selectedReferences.length} reference(s) selectionnee(s).
+        Select the type of modification to apply to the {selectedReferences.length} selected reference(s).
       </p>
       <RadioGroup
         value={state.modificationType || ''}
@@ -393,10 +393,10 @@ export function ModificationWizard({
           <div className="flex-1">
             <div className="flex items-center gap-2">
               <Building2 className="h-4 w-4 text-accent" />
-              <span className="font-medium">Changer de fournisseur</span>
+              <span className="font-medium">Change Supplier</span>
             </div>
             <p className="text-sm text-muted-foreground mt-1">
-              Modifier le fournisseur et mettre a jour les codes-barres et references fournisseur
+              Change the supplier and update barcodes and supplier references
             </p>
           </div>
         </label>
@@ -409,10 +409,10 @@ export function ModificationWizard({
           <div className="flex-1">
             <div className="flex items-center gap-2">
               <Truck className="h-4 w-4 text-accent" />
-              <span className="font-medium">Changer de circuit</span>
+              <span className="font-medium">Change Channel</span>
             </div>
             <p className="text-sm text-muted-foreground mt-1">
-              Passer de Direct a Stock ou inversement, avec mise a jour des sites
+              Switch from Direct to Stock or vice versa, with site updates
             </p>
           </div>
         </label>
@@ -425,10 +425,10 @@ export function ModificationWizard({
           <div className="flex-1">
             <div className="flex items-center gap-2">
               <MapPin className="h-4 w-4 text-accent" />
-              <span className="font-medium">Modifier les affectations de sites</span>
+              <span className="font-medium">Modify Site Assignments</span>
             </div>
             <p className="text-sm text-muted-foreground mt-1">
-              Ajouter ou retirer des magasins ou entrepots de la liste d&apos;affectation
+              Add or remove stores or warehouses from the assignment list
             </p>
           </div>
         </label>
@@ -445,7 +445,7 @@ export function ModificationWizard({
       return (
         <div className="space-y-6">
           <div className="space-y-3">
-            <Label>Nouveau fournisseur</Label>
+            <Label>New Supplier</Label>
             <Select
               value={state.newSupplierId || ''}
               onValueChange={value => setState(prev => ({ 
@@ -455,7 +455,7 @@ export function ModificationWizard({
               }))}
             >
               <SelectTrigger>
-                <SelectValue placeholder="Selectionnez un fournisseur" />
+                <SelectValue placeholder="Select a supplier" />
               </SelectTrigger>
               <SelectContent>
                 {suppliers.map(s => (
@@ -481,11 +481,11 @@ export function ModificationWizard({
               <div className="p-3 rounded-lg bg-secondary/30 space-y-2">
                 <div className="flex items-center gap-2 text-sm">
                   <Building2 className="h-4 w-4 text-muted-foreground" />
-                  <span>Type zone : <strong>{newSupplier.siteConfiguration === 'national' ? 'National' : 'Groupe de sites'}</strong></span>
+                  <span>Zone type: <strong>{newSupplier.siteConfiguration === 'national' ? 'National' : 'Site Group'}</strong></span>
                 </div>
                 <div className="flex items-center gap-2 text-sm">
                   <Truck className="h-4 w-4 text-muted-foreground" />
-                  <span>Circuits acceptes : </span>
+                  <span>Accepted channels: </span>
                   {newSupplier.availableChannels.map(ch => (
                     <Badge key={ch} variant="outline" className="text-xs">
                       {ch === 'direct' ? 'Direct' : 'Stock'}
@@ -497,7 +497,7 @@ export function ModificationWizard({
               {/* Channel selection if multiple channels available */}
               {hasMultipleChannels && (
                 <div className="space-y-3">
-                  <Label>Circuit de livraison</Label>
+                  <Label>Delivery Channel</Label>
                   <RadioGroup
                     value={state.selectedChannelForSupplier || ''}
                     onValueChange={value => setState(prev => ({ 
@@ -518,7 +518,7 @@ export function ModificationWizard({
                         ) : (
                           <Warehouse className="h-4 w-4 text-accent" />
                         )}
-                        <span className="font-medium">{ch === 'direct' ? 'Direct (magasins)' : 'Stock (entrepots)'}</span>
+                        <span className="font-medium">{ch === 'direct' ? 'Direct (stores)' : 'Stock (warehouses)'}</span>
                       </label>
                     ))}
                   </RadioGroup>
@@ -530,10 +530,10 @@ export function ModificationWizard({
               <div className="space-y-4">
                 <div className="p-3 rounded-lg bg-warning/10 border border-warning/20">
                   <p className="text-sm text-warning font-medium">
-                    Mise a jour obligatoire des codes-barres et references fournisseur
+                    Mandatory update of barcodes and supplier references
                   </p>
-                  <p className="text-xs text-muted-foreground mt-1">
-                    Chaque reference doit avoir un nouveau code-barres et une nouvelle reference fournisseur.
+                  <p className="text-xs text-muted-foreground">
+                    Each reference must have a new barcode and a new supplier reference.
                   </p>
                 </div>
 
@@ -568,10 +568,10 @@ export function ModificationWizard({
                           </div>
                           <div className="space-y-1.5">
                             <Label className="text-xs text-muted-foreground">
-                              Ref. four. actuelle : <span className="font-mono">{ref.supplierReference}</span>
+                              Current supplier ref.: <span className="font-mono">{ref.supplierReference}</span>
                             </Label>
                             <Input
-                              placeholder="Nouvelle ref. fournisseur"
+                              placeholder="New supplier reference"
                               className="font-mono text-sm"
                               value={state.supplierRefsByReference[ref.id] || ''}
                               onChange={e => setState(prev => ({
@@ -590,7 +590,7 @@ export function ModificationWizard({
                 </ScrollArea>
                 
                 <p className="text-xs text-muted-foreground">
-                  {selectedReferences.filter(ref => state.barcodesByReference[ref.id]?.trim() && state.supplierRefsByReference[ref.id]?.trim()).length} / {selectedReferences.length} reference(s) completee(s)
+                  {selectedReferences.filter(ref => state.barcodesByReference[ref.id]?.trim() && state.supplierRefsByReference[ref.id]?.trim()).length} / {selectedReferences.length} reference(s) completed
                 </p>
               </div>
             </>
@@ -602,7 +602,7 @@ export function ModificationWizard({
     if (state.modificationType === 'channel') {
       return (
         <div className="space-y-4">
-          <Label>Nouveau circuit de distribution</Label>
+          <Label>New Distribution Channel</Label>
           <RadioGroup
             value={state.newChannel || ''}
             onValueChange={value => {
@@ -625,7 +625,7 @@ export function ModificationWizard({
                   <span className="font-medium">Direct</span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Livraison directe du fournisseur vers les magasins
+                  Direct delivery from supplier to stores
                 </p>
               </div>
             </label>
@@ -641,7 +641,7 @@ export function ModificationWizard({
                   <span className="font-medium">Stock</span>
                 </div>
                 <p className="text-sm text-muted-foreground mt-1">
-                  Livraison vers les entrepots pour stockage et redistribution
+                  Delivery to warehouses for storage and redistribution
                 </p>
               </div>
             </label>
@@ -661,13 +661,13 @@ export function ModificationWizard({
     });
 
     const channelLabel = currentChannels.size === 1 
-      ? ([...currentChannels][0] === 'direct' ? 'Direct (magasins)' : 'Stock (entrepots)')
-      : 'Mixte';
+      ? ([...currentChannels][0] === 'direct' ? 'Direct (stores)' : 'Stock (warehouses)')
+      : 'Mixed';
 
     return (
       <div className="space-y-4">
         <p className="text-sm text-muted-foreground">
-          Configuration actuelle : {currentSites.size} site(s) affecte(s) aux references selectionnees.
+          Current configuration: {currentSites.size} site(s) assigned to selected references.
         </p>
         <div className="p-4 rounded-lg bg-secondary/30 space-y-2">
           <div className="flex items-center gap-2">
@@ -676,10 +676,10 @@ export function ModificationWizard({
             ) : (
               <Truck className="h-4 w-4 text-muted-foreground" />
             )}
-            <span className="text-sm">Circuit actuel : <strong>{channelLabel}</strong></span>
+            <span className="text-sm">Current channel: <strong>{channelLabel}</strong></span>
           </div>
           <p className="text-sm text-muted-foreground">
-            A l&apos;etape suivante, vous pourrez modifier les affectations de {[...currentChannels][0] === 'stock' ? 'entrepots' : 'magasins'}.
+            In the next step, you can modify the {[...currentChannels][0] === 'stock' ? 'warehouse' : 'store'} assignments.
           </p>
         </div>
       </div>
@@ -695,26 +695,26 @@ export function ModificationWizard({
     // For national configuration, site selection is not allowed
     if (isNational) {
       const channel = getCurrentChannel();
-      const siteType = channel === 'stock' ? 'entrepots' : 'magasins';
+      const siteType = channel === 'stock' ? 'warehouses' : 'stores';
       
       return (
         <div className="space-y-4">
           <div className="p-4 rounded-lg bg-accent/10 border border-accent/20">
             <div className="flex items-center gap-2 text-accent">
               <Check className="h-4 w-4" />
-              <span className="font-medium">Configuration nationale</span>
+              <span className="font-medium">National Configuration</span>
             </div>
             <p className="text-sm text-muted-foreground mt-2">
-              Le fournisseur est configure en mode &quot;National&quot;. Tous les {siteType} seront automatiquement affectes.
+              The supplier is configured in &quot;National&quot; mode. All {siteType} will be automatically assigned.
             </p>
             {state.modificationType === 'sites' && (
               <p className="text-sm text-warning mt-2">
-                La modification unitaire des sites n&apos;est pas possible en configuration nationale.
+                Individual site modification is not possible in national configuration.
               </p>
             )}
           </div>
           <div className="text-sm text-muted-foreground">
-            {availableSites.length} site(s) seront affectes automatiquement.
+            {availableSites.length} site(s) will be automatically assigned.
           </div>
         </div>
       );
@@ -729,14 +729,14 @@ export function ModificationWizard({
       <div className="space-y-4">
         <div className="flex items-center justify-between">
           <span className="text-sm text-muted-foreground">
-            {state.selectedSites.length} site(s) selectionne(s)
+            {state.selectedSites.length} site(s) selected
           </span>
           <div className="flex gap-2">
             <Button variant="outline" size="sm" onClick={selectAllSites}>
-              Tout selectionner
+              Select All
             </Button>
             <Button variant="outline" size="sm" onClick={clearAllSites}>
-              Tout deselectionner
+              Deselect All
             </Button>
           </div>
         </div>
@@ -781,6 +781,9 @@ export function ModificationWizard({
                           />
                           <Warehouse className="h-3 w-3 text-muted-foreground" />
                           <span className="text-sm">{site.name}</span>
+                          <Badge variant="outline" className="text-xs ml-auto">
+                            {site.region}
+                          </Badge>
                         </label>
                       ))}
                     </div>
@@ -821,12 +824,12 @@ export function ModificationWizard({
       <div className="space-y-6">
         {/* Actions summary */}
         <div className="space-y-3">
-          <h4 className="font-medium">Recapitulatif des modifications</h4>
+          <h4 className="font-medium">Modification Summary</h4>
           <div className="p-4 rounded-lg bg-secondary/30 space-y-2">
             <div className="flex items-center gap-2">
               <Package className="h-4 w-4 text-muted-foreground" />
               <span className="text-sm">
-                <strong>{selectedReferences.length}</strong> reference(s) concernee(s)
+                <strong>{selectedReferences.length}</strong> reference(s) affected
               </span>
             </div>
 
@@ -835,23 +838,23 @@ export function ModificationWizard({
                 <Separator className="my-2" />
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <p className="text-xs text-muted-foreground mb-1">Ancien fournisseur</p>
+                    <p className="text-xs text-muted-foreground mb-1">Previous Supplier</p>
                     <div className="flex items-center gap-2">
                       <Building2 className="h-4 w-4 text-muted-foreground" />
                       <span className="text-sm font-medium">{getCurrentSuppliers()[0]?.name || '-'}</span>
                     </div>
                     <Badge variant="outline" className="text-xs mt-1">
-                      {getCurrentSuppliers()[0]?.siteConfiguration === 'national' ? 'National' : 'Groupe'}
+                      {getCurrentSuppliers()[0]?.siteConfiguration === 'national' ? 'National' : 'Group'}
                     </Badge>
                   </div>
                   <div>
-                    <p className="text-xs text-muted-foreground mb-1">Nouveau fournisseur</p>
+                    <p className="text-xs text-muted-foreground mb-1">New Supplier</p>
                     <div className="flex items-center gap-2 text-accent">
                       <Building2 className="h-4 w-4" />
                       <span className="text-sm font-medium">{supplier.name}</span>
                     </div>
                     <Badge className="text-xs mt-1 bg-accent text-accent-foreground">
-                      {supplier.siteConfiguration === 'national' ? 'National' : 'Groupe'}
+                      {supplier.siteConfiguration === 'national' ? 'National' : 'Group'}
                     </Badge>
                   </div>
                 </div>
@@ -863,14 +866,14 @@ export function ModificationWizard({
                       <Truck className="h-4 w-4 text-accent" />
                     )}
                     <span className="text-sm">
-                      Circuit : <strong>{state.selectedChannelForSupplier === 'stock' ? 'Stock' : 'Direct'}</strong>
+                      Channel: <strong>{state.selectedChannelForSupplier === 'stock' ? 'Stock' : 'Direct'}</strong>
                     </span>
                   </div>
                 )}
                 <div className="flex items-center gap-2 mt-2">
                   <Check className="h-4 w-4 text-accent" />
                   <span className="text-sm">
-                    {Object.keys(state.barcodesByReference).filter(k => state.barcodesByReference[k]).length} code(s)-barres et ref. fournisseur mis a jour
+                    {Object.keys(state.barcodesByReference).filter(k => state.barcodesByReference[k]).length} barcode(s) and supplier ref(s) updated
                   </span>
                 </div>
               </>
@@ -885,13 +888,13 @@ export function ModificationWizard({
                     <Truck className="h-4 w-4 text-muted-foreground" />
                   )}
                   <span className="text-sm">
-                    Nouveau circuit : <strong>{state.newChannel === 'stock' ? 'Stock' : 'Direct'}</strong>
+                    New channel: <strong>{state.newChannel === 'stock' ? 'Stock' : 'Direct'}</strong>
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <MapPin className="h-4 w-4 text-muted-foreground" />
                   <span className="text-sm">
-                    <strong>{state.selectedSites.length}</strong> site(s) affecte(s)
+                    <strong>{state.selectedSites.length}</strong> site(s) assigned
                   </span>
                 </div>
               </>
@@ -901,7 +904,7 @@ export function ModificationWizard({
               <div className="flex items-center gap-2">
                 <MapPin className="h-4 w-4 text-muted-foreground" />
                 <span className="text-sm">
-                  <strong>{state.selectedSites.length}</strong> site(s) affecte(s)
+                  <strong>{state.selectedSites.length}</strong> site(s) assigned
                 </span>
               </div>
             )}
@@ -911,7 +914,7 @@ export function ModificationWizard({
         {/* Alerts */}
         {alerts.length > 0 && (
           <div className="space-y-3">
-            <h4 className="font-medium">Alertes de coherence</h4>
+            <h4 className="font-medium">Coherence Alerts</h4>
             <div className="space-y-2">
               {alerts.map((alert, index) => (
                 <div
@@ -932,8 +935,8 @@ export function ModificationWizard({
                       alert.severity === 'error' ? 'text-destructive' : 'text-warning'
                     }`}>
                       {alert.type === 'reference_without_sites'
-                        ? 'Reference(s) sans site'
-                        : 'Site(s) orphelin(s)'}
+                        ? 'Reference(s) without site'
+                        : 'Orphan site(s)'}
                     </p>
                     <p className="text-sm text-muted-foreground mt-1">{alert.message}</p>
                   </div>
@@ -947,10 +950,10 @@ export function ModificationWizard({
           <div className="p-4 rounded-lg bg-accent/10 border border-accent/20">
             <div className="flex items-center gap-2 text-accent">
               <Check className="h-4 w-4" />
-              <span className="font-medium">Aucune alerte de coherence</span>
+              <span className="font-medium">No coherence alerts</span>
             </div>
             <p className="text-sm text-muted-foreground mt-1">
-              Les modifications sont coherentes et peuvent etre appliquees.
+              Modifications are consistent and can be applied.
             </p>
           </div>
         )}
@@ -959,9 +962,9 @@ export function ModificationWizard({
   };
 
   const stepTitles = [
-    'Type de modification',
+    'Modification Type',
     'Configuration',
-    'Selection des sites',
+    'Site Selection',
     'Confirmation',
   ];
 
@@ -969,9 +972,9 @@ export function ModificationWizard({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="max-w-2xl max-h-[90vh] flex flex-col">
         <DialogHeader>
-          <DialogTitle>Modification en masse</DialogTitle>
+          <DialogTitle>Bulk Modification</DialogTitle>
           <DialogDescription>
-            Etape {step} sur 4 : {stepTitles[step - 1]}
+            Step {step} of 4: {stepTitles[step - 1]}
           </DialogDescription>
         </DialogHeader>
 
@@ -1003,17 +1006,17 @@ export function ModificationWizard({
             onClick={step === 1 ? () => onOpenChange(false) : handleBack}
           >
             {step === 1 ? (
-              'Annuler'
+              'Cancel'
             ) : (
               <>
                 <ArrowLeft className="mr-2 h-4 w-4" />
-                Retour
+                Back
               </>
             )}
           </Button>
           {step < 4 ? (
             <Button onClick={handleNext} disabled={!canProceed()}>
-              Suivant
+              Next
               <ArrowRight className="ml-2 h-4 w-4" />
             </Button>
           ) : (
@@ -1023,7 +1026,7 @@ export function ModificationWizard({
               className="bg-accent text-accent-foreground hover:bg-accent/90"
             >
               <Check className="mr-2 h-4 w-4" />
-              Appliquer les modifications
+              Apply Modifications
             </Button>
           )}
         </div>
