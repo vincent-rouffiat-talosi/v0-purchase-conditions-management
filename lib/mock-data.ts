@@ -1,51 +1,51 @@
 import type { Site, SiteGroup, Supplier, ProductReference } from './types';
 
-// Sites (warehouses and stores)
+// Sites (warehouses and stores) - Spain
 export const warehouses: Site[] = [
-  { id: 'wh-1', name: 'Paris North Warehouse', type: 'warehouse', region: 'Ile-de-France' },
-  { id: 'wh-2', name: 'Lyon Warehouse', type: 'warehouse', region: 'Auvergne-Rhone-Alpes' },
-  { id: 'wh-3', name: 'Marseille Warehouse', type: 'warehouse', region: 'PACA' },
-  { id: 'wh-4', name: 'Bordeaux Warehouse', type: 'warehouse', region: 'Nouvelle-Aquitaine' },
+  { id: 'wh-1', name: 'Madrid Central Warehouse', type: 'warehouse', region: 'Comunidad de Madrid' },
+  { id: 'wh-2', name: 'Barcelona Warehouse', type: 'warehouse', region: 'Cataluna' },
+  { id: 'wh-3', name: 'Valencia Warehouse', type: 'warehouse', region: 'Comunidad Valenciana' },
+  { id: 'wh-4', name: 'Sevilla Warehouse', type: 'warehouse', region: 'Andalucia' },
 ];
 
 export const stores: Site[] = [
-  { id: 'st-1', name: 'Paris 15 Store', type: 'store', region: 'Ile-de-France' },
-  { id: 'st-2', name: 'Paris 20 Store', type: 'store', region: 'Ile-de-France' },
-  { id: 'st-3', name: 'Versailles Store', type: 'store', region: 'Ile-de-France' },
-  { id: 'st-4', name: 'Lyon Central Store', type: 'store', region: 'Auvergne-Rhone-Alpes' },
-  { id: 'st-5', name: 'Lyon East Store', type: 'store', region: 'Auvergne-Rhone-Alpes' },
-  { id: 'st-6', name: 'Grenoble Store', type: 'store', region: 'Auvergne-Rhone-Alpes' },
-  { id: 'st-7', name: 'Marseille North Store', type: 'store', region: 'PACA' },
-  { id: 'st-8', name: 'Marseille South Store', type: 'store', region: 'PACA' },
-  { id: 'st-9', name: 'Nice Store', type: 'store', region: 'PACA' },
-  { id: 'st-10', name: 'Bordeaux Central Store', type: 'store', region: 'Nouvelle-Aquitaine' },
-  { id: 'st-11', name: 'Bordeaux Lake Store', type: 'store', region: 'Nouvelle-Aquitaine' },
-  { id: 'st-12', name: 'Toulouse Store', type: 'store', region: 'Occitanie' },
+  { id: 'st-1', name: 'Madrid Centro Store', type: 'store', region: 'Comunidad de Madrid' },
+  { id: 'st-2', name: 'Madrid Vallecas Store', type: 'store', region: 'Comunidad de Madrid' },
+  { id: 'st-3', name: 'Alcala de Henares Store', type: 'store', region: 'Comunidad de Madrid' },
+  { id: 'st-4', name: 'Barcelona Diagonal Store', type: 'store', region: 'Cataluna' },
+  { id: 'st-5', name: 'Barcelona Sants Store', type: 'store', region: 'Cataluna' },
+  { id: 'st-6', name: 'Tarragona Store', type: 'store', region: 'Cataluna' },
+  { id: 'st-7', name: 'Valencia Centro Store', type: 'store', region: 'Comunidad Valenciana' },
+  { id: 'st-8', name: 'Alicante Store', type: 'store', region: 'Comunidad Valenciana' },
+  { id: 'st-9', name: 'Castellon Store', type: 'store', region: 'Comunidad Valenciana' },
+  { id: 'st-10', name: 'Sevilla Centro Store', type: 'store', region: 'Andalucia' },
+  { id: 'st-11', name: 'Malaga Store', type: 'store', region: 'Andalucia' },
+  { id: 'st-12', name: 'Granada Store', type: 'store', region: 'Andalucia' },
 ];
 
 export const allSites: Site[] = [...warehouses, ...stores];
 
-// Site groups
+// Site groups - Spanish regions
 export const siteGroups: SiteGroup[] = [
-  { id: 'grp-north', name: 'North Zone', sites: stores.filter(s => s.region === 'Ile-de-France') },
-  { id: 'grp-east', name: 'East Zone', sites: stores.filter(s => s.region === 'Auvergne-Rhone-Alpes') },
-  { id: 'grp-south', name: 'South Zone', sites: stores.filter(s => s.region === 'PACA' || s.region === 'Occitanie') },
-  { id: 'grp-west', name: 'West Zone', sites: stores.filter(s => s.region === 'Nouvelle-Aquitaine') },
+  { id: 'grp-centro', name: 'Centro Zone', sites: stores.filter(s => s.region === 'Comunidad de Madrid') },
+  { id: 'grp-cataluna', name: 'Cataluna Zone', sites: stores.filter(s => s.region === 'Cataluna') },
+  { id: 'grp-levante', name: 'Levante Zone', sites: stores.filter(s => s.region === 'Comunidad Valenciana') },
+  { id: 'grp-sur', name: 'Sur Zone', sites: stores.filter(s => s.region === 'Andalucia') },
 ];
 
-// Suppliers
+// Suppliers - Spanish market
 export const suppliers: Supplier[] = [
   {
     id: 'sup-1',
-    name: 'Pro Tools France',
-    code: 'PTF',
+    name: 'Herramientas Pro Espana',
+    code: 'HPE',
     siteConfiguration: 'national',
     availableChannels: ['direct', 'stock'],
     defaultSiteGroups: [],
   },
   {
     id: 'sup-2',
-    name: 'Bricomat International',
+    name: 'Bricomart Iberica',
     code: 'BMI',
     siteConfiguration: 'group',
     availableChannels: ['direct'],
@@ -53,16 +53,16 @@ export const suppliers: Supplier[] = [
   },
   {
     id: 'sup-3',
-    name: 'Durand Hardware',
-    code: 'DHW',
+    name: 'Ferreteria Garcia',
+    code: 'FGR',
     siteConfiguration: 'group',
     availableChannels: ['direct', 'stock'],
     defaultSiteGroups: [siteGroups[2], siteGroups[3]],
   },
   {
     id: 'sup-4',
-    name: 'Tools & More',
-    code: 'T&M',
+    name: 'Suministros del Sur',
+    code: 'SDS',
     siteConfiguration: 'national',
     availableChannels: ['stock'],
     defaultSiteGroups: [],
