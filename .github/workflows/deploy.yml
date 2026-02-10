@@ -1,0 +1,34 @@
+name: Deployment
+
+permissions:
+  contents: read
+  id-token: write
+  deployments: write
+  actions: read
+
+on:
+  workflow_call:
+    inputs:
+      version:
+        description: 'Version/tag to deploy (e.g., 1.0.0). If not provided, will use GITHUB_HEAD_REF_SLUG'
+        required: false
+        type: string
+        default: 'latest'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version/tag to deploy (e.g., 1.0.0)'
+        required: true
+        type: string
+
+jobs:
+  deploy:
+    uses: adeo/dxp--reusable-github-actions-workflows/.github/workflows/turbine-deploy.yml@v2
+    with:
+      turbine-component-name: "spi-v0-pcs-management"
+      turbine-environment-name: "pdp-pre-spi-fras-dev"
+      turbine-component-version: ${{ inputs.version }}
+      vault-namespace: "adeo/spi"
+      vault-jwt-role-name: ${{ github.event.repository.name }}
+      vault-secrets: | # pragma: allowlist secret
+        secret/data/_services/turbine/default token | TURBINE_TOKEN ;

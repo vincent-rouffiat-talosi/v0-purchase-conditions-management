@@ -1,0 +1,39 @@
+name: Build And Deploy
+
+permissions: write-all
+
+on:
+  workflow_call:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: "Build & Push Docker Image"
+    uses: adeo/dxp--reusable-github-actions-workflows/.github/workflows/node-docker-build.yml@v2
+    with:
+      node-version: "20.19"
+      node-build-command: "build"
+      docker-image-name: "spi-v0-pcs-management"
+      dockerfile-path: "./Dockerfile"
+      working-directory: "."
+      docker-publish-latest: "auto"
+      docker-image-tag: "latest"
+      docker-image-push-branch-tag: false
+      prune-dev-dependecies: true
+      vault-namespace: "adeo/spi"
+      vault-jwt-role-name: ${{ github.event.repository.name }}
+      vault-secrets: |
+        secret/data/_services/jfrog-docker/default folder | DOCKER_IMAGE_FOLDER;
+        secret/data/_services/jfrog-docker/default dev_repo_url | DOCKER_IMAGE_REPOSITORY;
+
+  deploy-dev:
+    name: "Deploy to DEV Environment (conditional)"
+    uses: ./.github/workflows/deploy.yml
+    needs: [ "build" ]
+    if: github.actor != 'dependabot[bot]'
+    with:
+      version: "latest"
