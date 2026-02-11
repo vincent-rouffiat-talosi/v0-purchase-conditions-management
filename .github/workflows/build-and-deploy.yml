@@ -3,8 +3,10 @@ name: Build And Deploy
 permissions: write-all
 
 on:
+  push:
+    branches:
+      - main
   workflow_call:
-  workflow_dispatch:
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
